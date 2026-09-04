@@ -1,0 +1,97 @@
+{
+  "plugins": [
+    {
+      "id": "post.kokoro-tts",
+      "name": "Kokoro TTS",
+      "version": "1.0.0",
+      "description": "Speaks text with Kokoro and lays it on the timeline as audio. Adds Speak this text to a text overlay's right-click menu, and Create speech and its settings under Tools.",
+      "author": "kl3mta3",
+      "entry": "Post.Kokoro.dll",
+      "minimumPostVersion": "1.0.0",
+      "folder": "post.kokoro-tts",
+      "capabilities": [
+        "read-timeline",
+        "write-audio",
+        "settings"
+      ],
+      "files": [
+        {
+          "path": "KokoroSharp.dll",
+          "sha256": "e5c425f474001f973c655b020cad4fcfc6b52dac1deb7f812ba2ea06e247d47e"
+        },
+        {
+          "path": "Microsoft.ML.OnnxRuntime.dll",
+          "sha256": "2dbd3a6fdcf7ee3230c322da2d70c6b70e33cbe3477edbd4a847bbaa6ea50990"
+        },
+        {
+          "path": "MisakiSharp.dll",
+          "sha256": "f90ef27ee2d001b15b31270003d2310297847d2b44f7dc2665150f014f9efe0d"
+        },
+        {
+          "path": "NAudio.Asio.dll",
+          "sha256": "ca03780217139b37f7f5b6921d59defb8d24988315b16b167a77fa88caa7d00f"
+        },
+        {
+          "path": "NAudio.Core.dll",
+          "sha256": "fcf493fc47a2f478a65303886b975fbdbf714cbb1f2d79f7fce97e4bb16b01a8"
+        },
+        {
+          "path": "NAudio.dll",
+          "sha256": "c001e49d31497f608b14066b0f10304c0ccb7e3b9df9d5fec5cf3196f92961b8"
+        },
+        {
+          "path": "NAudio.Midi.dll",
+          "sha256": "f246e29921797b173b54229685e997a11f9cc388fa1e589c212328abd7a94ebe"
+        },
+        {
+          "path": "NAudio.Wasapi.dll",
+          "sha256": "618ef0e49d64e7a66dfe64bbf6ae81705b9d9683d8a9f321e5c3024d666bdf82"
+        },
+        {
+          "path": "NAudio.WinForms.dll",
+          "sha256": "b313f530227fd31fc2b6fa74547f4c8a964cde7696c07624dfc19b693fe9c468"
+        },
+        {
+          "path": "NAudio.WinMM.dll",
+          "sha256": "749a01ebbb5edd8b1a03c5263b04de6acadecf52e4cc84d7412bc6e93f180958"
+        },
+        {
+          "path": "NumSharp.dll",
+          "sha256": "b4930daa8c8cb7985f524355a9bcc8708d28cdfa4d6bf0c8b20ecfbd5665561f"
+        },
+        {
+          "path": "onnxruntime_providers_shared.dll",
+          "sha256": "ba00ea1ef846c9b909c7854bc56c51051a20f9773b3e1153dda118d4b85d0b93"
+        },
+        {
+          "path": "onnxruntime.dll",
+          "sha256": "579b636403983254346a5c1d80bd28f1519cd1e284cd204f8d4ff41f8d711559"
+        },
+        {
+          "path": "OpenTK.Audio.OpenAL.dll",
+          "sha256": "b4182c3b8ab368f54a18fa67269639f1955214663fddde2fa096ac954bb8138f"
+        },
+        {
+          "path": "OpenTK.Core.dll",
+          "sha256": "a38a423e386ba371f4f89af3677bcbf02f8f488fc2640beed503946fc9fecffa"
+        },
+        {
+          "path": "OpenTK.Mathematics.dll",
+          "sha256": "32273bf6f77b1fb5a698a30a81bad037e8bfb6f40265181c6802727af68252fc"
+        },
+        {
+          "path": "Post.Kokoro.deps.json",
+          "sha256": "63747aaa5144224a8dc4c20017381360f76f4f6b3ad4f954bb22e37250da8ea5"
+        },
+        {
+          "path": "Post.Kokoro.dll",
+          "sha256": "f6053bd41a42f0331d6ed095ee95f137f36926bc9c46dd5625f657f092d2c9ab"
+        },
+        {
+          "path": "System.Numerics.Tensors.dll",
+          "sha256": "ad9c34966767f3a249ea8d2d80499888d2ff520d6c873768bea55bdcab9eed0d"
+        }
+      ]
+    }
+  ]
+}
