@@ -1,14 +1,14 @@
 {
   "plugins": [
     {
-      "id": "post.kokoro-tts",
+      "id": "kokoro-tts",
       "name": "Kokoro TTS",
       "version": "1.0.0",
       "description": "Speaks text with Kokoro and lays it on the timeline as audio. Adds Speak this text to a text overlay's right-click menu, and Create speech and its settings under Tools.",
       "author": "kl3mta3",
       "entry": "Post.Kokoro.dll",
       "minimumPostVersion": "1.0.0",
-      "folder": "post.kokoro-tts",
+      "folder": "kokoro-tts",
       "capabilities": [
         "read-timeline",
         "write-audio",
@@ -85,7 +85,7 @@
         },
         {
           "path": "Post.Kokoro.dll",
-          "sha256": "f6053bd41a42f0331d6ed095ee95f137f36926bc9c46dd5625f657f092d2c9ab"
+          "sha256": "653ddcbed047d334ca50e8dfdf8e7390833d16cc318a2274ae87f95c7b1345ac"
         },
         {
           "path": "System.Numerics.Tensors.dll",
