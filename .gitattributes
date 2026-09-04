@@ -1,0 +1,2 @@
+# Plugin payloads are artifacts: keep every byte as committed, or the checksum fails.
+* -text
