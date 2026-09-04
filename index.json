@@ -81,11 +81,11 @@
         },
         {
           "path": "Post.Kokoro.deps.json",
-          "sha256": "63747aaa5144224a8dc4c20017381360f76f4f6b3ad4f954bb22e37250da8ea5"
+          "sha256": "362c58791413b9e7af561c6afcfdc5335323952ee3ba00d83cbb52226b4a01b1"
         },
         {
           "path": "Post.Kokoro.dll",
-          "sha256": "653ddcbed047d334ca50e8dfdf8e7390833d16cc318a2274ae87f95c7b1345ac"
+          "sha256": "e74c377ebc391cbe66ad7559c8ddba2d2aec692e5ec179ce02a4e74fa35ea788"
         },
         {
           "path": "System.Numerics.Tensors.dll",
