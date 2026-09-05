@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Visualiser</title>
+<style>
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+
+<script src="butterchurn.min.js"></script>
+<script src="butterchurnPresets.min.js"></script>
+<script>
+// Renders a MilkDrop preset against a piece of audio and records the pair to one webm.
+//
+// It runs at ordinary speed because MediaRecorder records what it is shown, when it is
+// shown. The audio is played into both the visualiser and the recording, so the file that
+// comes out carries the music it was made from and cannot drift from it.
+
+const say = message => window.chrome?.webview?.postMessage(JSON.stringify(message));
+
+function presetNames() {
+  const packs = [];
+  if (window.butterchurnPresets?.getPresets) packs.push(window.butterchurnPresets.getPresets());
+  else if (window.butterchurnPresets) packs.push(window.butterchurnPresets);
+  const all = Object.assign({}, ...packs);
+  return { all, names: Object.keys(all).sort((a, b) => a.localeCompare(b)) };
+}
+
+// Post asks for the list before showing its dialog, so the choice is of what is here.
+window.listPresets = () => JSON.stringify(presetNames().names);
+
+window.render = async (audioUrl, presetName, width, height, fps) => {
+  try {
+    const canvas = document.getElementById('stage');
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = new AudioContext();
+    const response = await fetch(audioUrl);
+    const decoded = await context.decodeAudioData(await response.arrayBuffer());
+
+    const visualizer = butterchurn.default.createVisualizer(context, canvas, {
+      width, height, pixelRatio: 1, textureRatio: 1,
+    });
+
+    const { all, names } = presetNames();
+    const chosen = presetName === '(random)' ? names[Math.floor(Math.random() * names.length)] : presetName;
+    visualizer.loadPreset(all[chosen] ?? all[names[0]], 0);
+    say({ kind: 'preset', name: chosen in all ? chosen : names[0] });
+
+    const source = context.createBufferSource();
+    source.buffer = decoded;
+
+    // One tap feeds the visualiser, the other feeds the recording, so what is seen and
+    // what is heard come from the same samples.
+    const toVisualiser = context.createGain();
+    const toRecording = context.createMediaStreamDestination();
+    source.connect(toVisualiser);
+    source.connect(toRecording);
+    visualizer.connectAudio(toVisualiser);
+
+    const stream = new MediaStream([
+      ...canvas.captureStream(fps).getVideoTracks(),
+      ...toRecording.stream.getAudioTracks(),
+    ]);
+
+    const chunks = [];
+    const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp8,opus' });
+    recorder.ondataavailable = event => { if (event.data.size) chunks.push(event.data); };
+
+    const finished = new Promise(resolve => { recorder.onstop = resolve; });
+    recorder.start();
+    source.start();
+
+    const total = decoded.duration;
+    let stopped = false;
+    const started = performance.now();
+
+    const frame = () => {
+      if (stopped) return;
+      const elapsed = (performance.now() - started) / 1000;
+      visualizer.render();
+      if (elapsed % 1 < 0.05) say({ kind: 'progress', value: Math.min(1, elapsed / total) });
+      if (elapsed >= total) { stopped = true; recorder.stop(); source.stop(); return; }
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+
+    await finished;
+
+    // Handed over as a download, which the host redirects to where it wants the file.
+    // Passing tens of megabytes back as text would be far slower and no simpler.
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' }));
+    link.download = 'visualiser.webm';
+    document.body.appendChild(link);
+    link.click();
+    say({ kind: 'saving' });
+  } catch (error) {
+    say({ kind: 'failed', message: String(error && error.message ? error.message : error) });
+  }
+};
+
+say({ kind: 'ready' });
+</script>
+</body>
+</html>

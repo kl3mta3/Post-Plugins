@@ -34,7 +34,7 @@
         "onnxruntime.dll",
         "onnxruntime_providers_shared.dll"
       ],
-      "sha256": "5354e13adc479aa9f8885a2a8caab6d4643b2ea7c09866d28be9c4c978da4da2"
+      "sha256": "9e364c7cb3dc899dee152dbe11ba1ffe631e4b7e06fa2a4d8da372ab5392470d"
     },
     {
       "id": "whisper-stt",
@@ -71,7 +71,35 @@
         "runtimes/win-x86/ggml-whisper.dll",
         "runtimes/win-x86/whisper.dll"
       ],
-      "sha256": "ad0d392c1c96d6d66080f261d8baf363d08d4276e23202a3a8f67d786e814d99"
+      "sha256": "4e21d052601bde7d00115d1b8f4e6b982b94fc70ac2bbb15d1a56db78e7a0d77"
+    },
+    {
+      "id": "milkdrop",
+      "name": "MilkDrop Visualiser",
+      "version": "1.0.0",
+      "description": "Makes a MilkDrop-style visualiser from audio on the timeline, with the music inside the finished clip so picture and sound cannot drift apart. Right-click an audio clip, or a selection of them.",
+      "author": "kl3mta3",
+      "entry": "Post.Milkdrop.dll",
+      "minimumPostVersion": "1.0.0",
+      "capabilities": [
+        "read-timeline",
+        "read-media",
+        "write-video",
+        "settings"
+      ],
+      "files": [
+        "Microsoft.Web.WebView2.Core.dll",
+        "Microsoft.Web.WebView2.WinForms.dll",
+        "Microsoft.Web.WebView2.Wpf.dll",
+        "Post.Milkdrop.deps.json",
+        "Post.Milkdrop.dll",
+        "WebView2Loader.dll",
+        "runtimes/win-x64/native/WebView2Loader.dll",
+        "web/butterchurn.min.js",
+        "web/butterchurnPresets.min.js",
+        "web/visualiser.html"
+      ],
+      "sha256": "561fa12f41b3d37888174c643bcb8215de3416ef0055484889e910e315def021"
     }
   ]
 }
