@@ -7,12 +7,13 @@
       "description": "Speaks text with Kokoro and lays it on the timeline as audio. Adds Speak this text to a text overlay's right-click menu, and Create speech and its settings under Tools.",
       "author": "kl3mta3",
       "entry": "Post.Kokoro.dll",
-      "minimumPostVersion": "1.0.0",
+      "minimumPostVersion": "1.0.1",
       "capabilities": [
         "read-timeline",
         "write-audio",
         "settings"
       ],
+      "setup": "the Kokoro voices and model",
       "files": [
         "KokoroSharp.dll",
         "Microsoft.ML.OnnxRuntime.dll",
@@ -34,7 +35,7 @@
         "onnxruntime.dll",
         "onnxruntime_providers_shared.dll"
       ],
-      "sha256": "b027387290446b7bb83d27b65e5616188540152a7f6784c8b47d89f8abaffea9"
+      "sha256": "22a1bb6ccd95ee93171fe90a0a1ccea866fcacb3b5f44093bea589cead0518c6"
     },
     {
       "id": "whisper-stt",
@@ -43,13 +44,14 @@
       "description": "Writes down what is said in a clip, with Whisper. Adds Transcribe to captions to a clip's right-click menu, laying captions on the timeline or saving a .srt beside the file.",
       "author": "kl3mta3",
       "entry": "Post.Whisper.dll",
-      "minimumPostVersion": "1.0.0",
+      "minimumPostVersion": "1.0.1",
       "capabilities": [
         "read-timeline",
         "read-media",
         "write-text",
         "settings"
       ],
+      "setup": "the Whisper model",
       "files": [
         "Microsoft.Extensions.AI.Abstractions.dll",
         "Post.Whisper.deps.json",
@@ -71,7 +73,7 @@
         "runtimes/win-x86/ggml-whisper.dll",
         "runtimes/win-x86/whisper.dll"
       ],
-      "sha256": "2dd14b0e76c1318ca463b899e0d0ed1f43a562f5d11bcadbcb31599babe54949"
+      "sha256": "b9070414c5f436f783b70d65b0bea16a8874975edb68828f0bcd88854e5ecd07"
     },
     {
       "id": "milkdrop",
@@ -80,13 +82,14 @@
       "description": "Makes a MilkDrop-style visualiser from audio on the timeline, with the music inside the finished clip so picture and sound cannot drift apart. Right-click an audio clip, or a selection of them.",
       "author": "kl3mta3",
       "entry": "Post.Milkdrop.dll",
-      "minimumPostVersion": "1.0.0",
+      "minimumPostVersion": "1.0.1",
       "capabilities": [
         "read-timeline",
         "read-media",
         "write-video",
         "settings"
       ],
+      "setup": null,
       "files": [
         "Microsoft.Web.WebView2.Core.dll",
         "Microsoft.Web.WebView2.WinForms.dll",
@@ -107,7 +110,7 @@
         "web/live.html",
         "web/visualiser.html"
       ],
-      "sha256": "b969d99612cf214b5ec2ce1b163ce955012ec1b80e51ee73ae0e98957b5134e0"
+      "sha256": "c04aa364a274804a7bf6ff522d13a8a80ebcef8a8d06c67287e26b5c6fa237ce"
     }
   ]
 }
