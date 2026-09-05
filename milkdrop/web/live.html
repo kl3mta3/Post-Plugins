@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Visualiser</title>
+<style>
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+
+<script src="butterchurn.min.js"></script>
+<script src="butterchurnPresets.min.js"></script>
+<script>
+// Runs a MilkDrop preset against whatever the machine is playing, so a preset can be
+// watched before it is committed to a clip.
+//
+// Nothing is decoded or played here. Butterchurn will sample an analyser for itself, but
+// render() also accepts the sampled window outright — so the samples come from WASAPI on
+// the other side of the bridge and there is no AudioContext in the audio path at all.
+// The AudioContext below exists because createVisualizer asks for one; it stays idle.
+
+const say = message => window.chrome?.webview?.postMessage(JSON.stringify(message));
+
+// Butterchurn samples 512 points, over an FFT of twice that.
+const WINDOW = 1024;
+
+function presetNames() {
+  const packs = [];
+  if (window.butterchurnPresets?.getPresets) packs.push(window.butterchurnPresets.getPresets());
+  else if (window.butterchurnPresets) packs.push(window.butterchurnPresets);
+  const all = Object.assign({}, ...packs);
+  return { all, names: Object.keys(all).sort((a, b) => a.localeCompare(b)) };
+}
+
+window.listPresets = () => JSON.stringify(presetNames().names);
+
+let visualizer = null;
+let presets = null;
+
+// Silence is 128: the middle of the byte range, which is what an idle analyser reads.
+const mono = new Uint8Array(WINDOW).fill(128);
+const left = new Uint8Array(WINDOW).fill(128);
+const right = new Uint8Array(WINDOW).fill(128);
+
+// Samples arrive as base64: the left window then the right, one byte each. Handing them
+// over as bytes keeps the bridge at a few KB a frame and the conversion on the side that
+// already has the floats.
+window.pushAudio = encoded => {
+  const raw = atob(encoded);
+  if (raw.length < WINDOW * 2) return;
+  for (let i = 0; i < WINDOW; i++) {
+    const l = raw.charCodeAt(i);
+    const r = raw.charCodeAt(WINDOW + i);
+    left[i] = l;
+    right[i] = r;
+    mono[i] = (l + r) >> 1;
+  }
+};
+
+// Samples come over the message channel rather than through a script call: at sixty a
+// second, the parsing a script call costs is the difference between smooth and not.
+window.chrome?.webview?.addEventListener('message', event => window.pushAudio(event.data));
+
+window.setPreset = (name, blendSeconds) => {
+  if (!visualizer || !presets) return;
+  const preset = presets.all[name];
+  if (!preset) return;
+  visualizer.loadPreset(preset, blendSeconds ?? 2);
+  say({ kind: 'preset', name });
+};
+
+window.setSize = (width, height) => {
+  const canvas = document.getElementById('stage');
+  canvas.width = Math.max(16, Math.round(width));
+  canvas.height = Math.max(16, Math.round(height));
+  visualizer?.setRendererSize(canvas.width, canvas.height);
+};
+
+window.start = (width, height, presetName) => {
+  try {
+    const canvas = document.getElementById('stage');
+    canvas.width = Math.max(16, Math.round(width));
+    canvas.height = Math.max(16, Math.round(height));
+
+    const context = new AudioContext();
+    visualizer = butterchurn.default.createVisualizer(context, canvas, {
+      width: canvas.width, height: canvas.height, pixelRatio: 1, textureRatio: 1,
+    });
+
+    presets = presetNames();
+    window.setPreset(presetName ?? presets.names[0], 0);
+
+    const frame = () => {
+      // Handing render the window it should use is what keeps the analyser out of it.
+      visualizer.render({ audioLevels: {
+        timeByteArray: mono, timeByteArrayL: left, timeByteArrayR: right,
+      }});
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  } catch (error) {
+    say({ kind: 'failed', message: String(error?.message ?? error) });
+  }
+};
+
+say({ kind: 'ready' });
+</script>
+</body>
+</html>

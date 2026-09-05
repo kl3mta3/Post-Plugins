@@ -34,7 +34,7 @@
         "onnxruntime.dll",
         "onnxruntime_providers_shared.dll"
       ],
-      "sha256": "9e364c7cb3dc899dee152dbe11ba1ffe631e4b7e06fa2a4d8da372ab5392470d"
+      "sha256": "b027387290446b7bb83d27b65e5616188540152a7f6784c8b47d89f8abaffea9"
     },
     {
       "id": "whisper-stt",
@@ -71,7 +71,7 @@
         "runtimes/win-x86/ggml-whisper.dll",
         "runtimes/win-x86/whisper.dll"
       ],
-      "sha256": "4e21d052601bde7d00115d1b8f4e6b982b94fc70ac2bbb15d1a56db78e7a0d77"
+      "sha256": "2dd14b0e76c1318ca463b899e0d0ed1f43a562f5d11bcadbcb31599babe54949"
     },
     {
       "id": "milkdrop",
@@ -91,15 +91,23 @@
         "Microsoft.Web.WebView2.Core.dll",
         "Microsoft.Web.WebView2.WinForms.dll",
         "Microsoft.Web.WebView2.Wpf.dll",
+        "NAudio.Asio.dll",
+        "NAudio.Core.dll",
+        "NAudio.Midi.dll",
+        "NAudio.Wasapi.dll",
+        "NAudio.WinForms.dll",
+        "NAudio.WinMM.dll",
+        "NAudio.dll",
         "Post.Milkdrop.deps.json",
         "Post.Milkdrop.dll",
         "WebView2Loader.dll",
         "runtimes/win-x64/native/WebView2Loader.dll",
         "web/butterchurn.min.js",
         "web/butterchurnPresets.min.js",
+        "web/live.html",
         "web/visualiser.html"
       ],
-      "sha256": "561fa12f41b3d37888174c643bcb8215de3416ef0055484889e910e315def021"
+      "sha256": "b969d99612cf214b5ec2ce1b163ce955012ec1b80e51ee73ae0e98957b5134e0"
     }
   ]
 }
