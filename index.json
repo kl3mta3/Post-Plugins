@@ -35,7 +35,7 @@
         "onnxruntime.dll",
         "onnxruntime_providers_shared.dll"
       ],
-      "sha256": "22a1bb6ccd95ee93171fe90a0a1ccea866fcacb3b5f44093bea589cead0518c6"
+      "sha256": "65b8e25222f812679545491833eff8b62b6e8a87add7999ea9b307d5649b5d17"
     },
     {
       "id": "whisper-stt",
@@ -73,7 +73,7 @@
         "runtimes/win-x86/ggml-whisper.dll",
         "runtimes/win-x86/whisper.dll"
       ],
-      "sha256": "b9070414c5f436f783b70d65b0bea16a8874975edb68828f0bcd88854e5ecd07"
+      "sha256": "99c2d1aa06249c9a7f36a9ca49d6769436ec04dbdd0ed2f8f4e96f370d083c34"
     },
     {
       "id": "milkdrop",
@@ -110,7 +110,7 @@
         "web/live.html",
         "web/visualiser.html"
       ],
-      "sha256": "c04aa364a274804a7bf6ff522d13a8a80ebcef8a8d06c67287e26b5c6fa237ce"
+      "sha256": "82af2cc5362a7a02d323a956d74a6b3614cde2c197d132af4dd1755fc8b09a1b"
     }
   ]
 }
